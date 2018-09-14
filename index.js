@@ -23,7 +23,7 @@ app.post('/', (req, res) => {
     }
   
     // print request body
-    console.log(req.body);
+    console.log(JSON.stringify(req.body,null,2));
 
     // return a text response
     const data = {
