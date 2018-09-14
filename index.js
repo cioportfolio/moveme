@@ -78,7 +78,7 @@ app.post('/', (req, res) => {
                     elements: ['ZOOPLA RESPONSE', 'Properties found']
                 },
                 {   
-                    type: 'text',
+                    type: 'img',
                     elements:[body.listing[0].thumbnail_url]    
                 }
             ]
