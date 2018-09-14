@@ -5,6 +5,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express().use(bodyParser.json()); // creates http server
 const token = 'test'; // type here your verification token
+const request = require('request');
+
+
+
 
 app.get('/', (req, res) => {
     // check if verification token is correct
@@ -25,17 +29,37 @@ app.post('/', (req, res) => {
     // print request body
     console.log(JSON.stringify(req.body,null,2));
 
-    // return a text response
-    const data = {
-        responses: [
-            {
-                type: 'text',
-                elements: ['Hi', 'Hello']
-            }
-        ]
-    };
-
-    res.json(data);
+    request('https://api.zoopla.co.uk/api/v1/property_listings?api_key=kmnafv8nhfm5bxgefezj34y7&area=london&radius=40', { json: true }, (err, res, body) => 
+    {
+        if (err) { 
+            const data = {
+                responses: [
+                    {
+                        type: 'text',
+                        elements: ['Error',err]
+                    }
+                ]
+            };
+            res.json(data);
+            return console.log(err);
+        }
+        console.log('ZOOPLA response');
+        console.log(JSON.stringify(body, null, 2));
+        // return a text response
+        const data = {
+            responses: [
+                {
+                    type: 'text',
+                    elements: ['ZOOPLA RESPONSE', 'Properties found']
+                },
+                {   
+                    type: 'text',
+                    elements:[body.listing[0].thumbnail_url]    
+                }
+            ]
+        };
+        res.json(data);
+    });
 });
 
 app.listen(3000, () => console.log('[BotEngine] Webhook is listening'));
