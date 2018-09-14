@@ -40,8 +40,8 @@ app.post('/', (req, res) => {
         json: true
     }
 
-    if (req.body.parameters) {
-        var pars = req.body.parameters;
+    if (req.body.result.parameters) {
+        var pars = req.body.result.parameters;
         if (pars.postcode) {
             options.qs.area = pars.postcode;
         }
