@@ -29,7 +29,7 @@ app.post('/', (req, res) => {
     // print request body
     console.log(JSON.stringify(req.body,null,2));
 
-    request('https://api.zoopla.co.uk/api/v1/property_listings.js?api_key=kmnafv8nhfm5bxgefezj34y7&area=london&radius=40', { json: true }, (err, res, body) => 
+    request('https://api.zoopla.co.uk/api/v1/property_listings.js?api_key=kmnafv8nhfm5bxgefezj34y7&area=london&radius=40', { json: true }, (err, response, body) => 
     {
         if (err) { 
             const data = {
