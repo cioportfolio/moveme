@@ -35,9 +35,9 @@ app.post('/', (req, res) => {
         qs: {
             api_key: 'kmnafv8nhfm5bxgefezj34y7',
             area: 'london',
-            radius: 40,
-            json: true
-        }
+            radius: 40
+        },
+        json: true
     }
 
     if (req.body.parameters) {
@@ -50,6 +50,9 @@ app.post('/', (req, res) => {
             options.qs.maximum_beds = pars.numberofbeds;
         }
     }
+
+    console.log('Query string');
+    console.log(JSON.stringify(options.qs, null, 2));
 
     request(options, (err, response, body) => 
     {
