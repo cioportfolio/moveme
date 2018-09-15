@@ -126,6 +126,19 @@ app.post('/', (req, res) => {
         console.log('ZOOPLA response');
         console.log(JSON.stringify(body, null, 2));
         // return a text response
+
+        if (!body.listing) {
+            const data = {
+                responses: [
+                    {
+                        type: 'text',
+                        elements: ['ZOOPLA Error', body.error_string,'Parameters', JSON.stringify(options.qs)]
+                    }
+                ]
+            }
+            res.json(data);
+            return
+        }
         var data;
         if (body.listing.length > 0) {
 
