@@ -174,6 +174,8 @@ app.post('/', (req, res) => {
                 ]
             }
         }
+        console.log('Webhook response');
+        console.log(JSON.stringify(data,null,2));
         res.json(data);
     });
 });
