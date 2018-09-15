@@ -130,7 +130,7 @@ app.post('/', (req, res) => {
         if (body.listing.length > 0) {
 
             var cards = {
-                type: 'card',
+                type: 'cards',
                 elements: [],
                 filters: []
             };
