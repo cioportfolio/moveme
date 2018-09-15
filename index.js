@@ -143,8 +143,10 @@ app.post('/', (req, res) => {
         if (body.listing.length > 0) {
         
             var propi = 0;
-            if (body.result.fulfilment) {
-                propi = 1;
+            if (req.body.result.fulfillment) {
+                if (req.body.result.fulfillment.length > 1) {
+                    propi = 1;
+                }
             }
 
             var cards = {
