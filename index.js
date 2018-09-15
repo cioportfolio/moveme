@@ -45,6 +45,26 @@ app.post('/', (req, res) => {
         if (pars.postcode) {
             options.qs.area = pars.postcode;
         }
+        if (pars.area) {
+            options.qs.area = pars.area;
+        }
+
+        if (pars.minprice) {
+            options.qs.minprice = pars.minprice;
+        }
+
+        if (pars.maxprice) {
+            options.qs.maxprice = pars.maxprice;
+        }
+
+        if (pars.property_type) {
+            options.qs.property_type = pars.property_type;
+        }
+
+        if (pars.listing_status) {
+            options.qs.listing_status = pars.listing_status;
+        }
+
         if (pars.numberofbeds) {
             options.qs.minimum_beds = pars.numberofbeds;
             options.qs.maximum_beds = pars.numberofbeds;
@@ -61,7 +81,7 @@ app.post('/', (req, res) => {
                 responses: [
                     {
                         type: 'text',
-                        elements: ['Error',err]
+                        elements: ['ZOOPLA Error',err]
                     }
                 ]
             };
@@ -71,18 +91,30 @@ app.post('/', (req, res) => {
         console.log('ZOOPLA response');
         console.log(JSON.stringify(body, null, 2));
         // return a text response
-        const data = {
-            responses: [
-                {
-                    type: 'text',
-                    elements: ['ZOOPLA RESPONSE', 'Properties found']
-                },
-                {   
-                    type: 'img',
-                    elements:[body.listing[0].thumbnail_url]    
-                }
-            ]
-        };
+        var data;
+        if (body.listing.length > 0) {
+            data = {
+                responses: [
+                    {
+                        type: 'text',
+                        elements: ['ZOOPLA RESPONSE', 'Properties found']
+                    },
+                    {   
+                        type: 'text',
+                        elements:[body.listing[0].details_url]    
+                    }
+                ]
+            }
+        } else {
+            data = {
+                responses: [
+                    {
+                        type: 'text',
+                        elements: ['ZOOPLA RESPONSE', 'Sorry, No properties found']
+                    }
+                ]
+            }
+        }
         res.json(data);
     });
 });
