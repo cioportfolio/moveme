@@ -191,8 +191,7 @@ app.post('/', (req, res) => {
                             }
                         ],
                         filters: []
-                    },
-                    cards
+                    }
                 ]
             }
         } else {
