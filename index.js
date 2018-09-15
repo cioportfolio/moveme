@@ -141,13 +141,18 @@ app.post('/', (req, res) => {
         }
         var data;
         if (body.listing.length > 0) {
+        
+            var propi = 0;
+            if (body.result.fulfilment) {
+                propi = 1;
+            }
 
             var cards = {
                 type: 'cards',
                 elements: [],
                 filters: []
             };
-            for (let i = 0; i < body.listing.length; i++) {
+            for (let i = propi; i < body.listing.length; i++) {
                 const prop = body.listing[i];
                 cards.elements.push({
                     title: prop.displayable_address,
@@ -163,6 +168,7 @@ app.post('/', (req, res) => {
                     filters: []
                 });
             }
+            var prop = body.listing[propi];
 
             data = {
                 responses: [
@@ -171,8 +177,18 @@ app.post('/', (req, res) => {
                         elements: ['ZOOPLA RESPONSE', 'Properties found']
                     },
                     {   
-                        type: 'text',
-                        elements:[body.listing[0].details_url]    
+                        type: 'card',
+                        title: prop.displayable_address,
+                        subtitle: prop.agent_name,
+                        imageUrl: prop.image_url,
+                        buttons: [
+                            {
+                                type: 'url',
+                                title: 'See on Zoopla',
+                                value: prop.details_url
+                            }
+                        ],
+                        filters: []
                     },
                     cards
                 ]
