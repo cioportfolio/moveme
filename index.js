@@ -26,7 +26,9 @@ app.post('/', (req, res) => {
         return res.sendStatus(401);
     }
   
-    // print request body
+    console.log('Chatbot request headers');
+    console.log(req.get('zooplaurl'))
+    console.log('Chatbot request body')
     console.log(JSON.stringify(req.body,null,2));
 
     var options = {
