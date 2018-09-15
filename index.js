@@ -43,8 +43,10 @@ app.post('/', (req, res) => {
         json: true
     }
 
+    var pars;
+
     if (req.body.result.parameters) {
-        var pars = req.body.result.parameters;
+        pars = req.body.result.parameters;
         if (pars.postcode) {
             options.qs.area = pars.postcode;
         }
@@ -74,6 +76,36 @@ app.post('/', (req, res) => {
         }
     }
 
+    if (req.body.result.sessionParameters) {
+        pars = req.body.result.sessionParameters;
+        if (pars.postcode) {
+            options.qs.area = pars.postcode;
+        }
+        if (pars.area) {
+            options.qs.area = pars.area;
+        }
+
+        if (pars.minprice) {
+            options.qs.minimum_price = pars.minprice;
+        }
+
+        if (pars.maxprice) {
+            options.qs.maximum_price = pars.maxprice;
+        }
+
+        if (pars.property_type) {
+            options.qs.property_type = pars.property_type;
+        }
+
+        if (pars.listing_status) {
+            options.qs.listing_status = pars.listing_status;
+        }
+
+        if (pars.numberofbeds) {
+            options.qs.minimum_beds = pars.numberofbeds;
+            options.qs.maximum_beds = pars.numberofbeds;
+        }
+    }
     console.log('Query string');
     console.log(JSON.stringify(options.qs, null, 2));
 
