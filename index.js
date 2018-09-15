@@ -35,7 +35,8 @@ app.post('/', (req, res) => {
         qs: {
             api_key: 'kmnafv8nhfm5bxgefezj34y7',
             area: 'london',
-            radius: 40
+            radius: 5,
+            page_size: 5
         },
         json: true
     }
@@ -50,11 +51,11 @@ app.post('/', (req, res) => {
         }
 
         if (pars.minprice) {
-            options.qs.minprice = pars.minprice;
+            options.qs.minimum_price = pars.minprice;
         }
 
         if (pars.maxprice) {
-            options.qs.maxprice = pars.maxprice;
+            options.qs.maximum_price = pars.maxprice;
         }
 
         if (pars.property_type) {
