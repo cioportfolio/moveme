@@ -128,6 +128,29 @@ app.post('/', (req, res) => {
         // return a text response
         var data;
         if (body.listing.length > 0) {
+
+            var cards = {
+                type: 'card',
+                elements: [],
+                filters: []
+            };
+            for (let i = 0; i < body.listing.length; i++) {
+                const prop = body.listing[i];
+                cards.elements.push({
+                    title: prop.displayable_address,
+                    subtitle: prop.agent_name,
+                    imageUrl: prop.image_url,
+                    buttons: [
+                        {
+                            type: 'url',
+                            title: 'See on Zoopla',
+                            value: prop.details_url
+                        }
+                    ],
+                    filters: []
+                });
+            }
+
             data = {
                 responses: [
                     {
@@ -137,7 +160,8 @@ app.post('/', (req, res) => {
                     {   
                         type: 'text',
                         elements:[body.listing[0].details_url]    
-                    }
+                    },
+                    cards
                 ]
             }
         } else {
